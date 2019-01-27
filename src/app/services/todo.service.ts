@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Todo } from '../models/todo'
 import { Observable } from 'rxjs';
 
-const HttpOptions = {
+const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
@@ -27,6 +27,12 @@ export class TodoService {
   // Toggle Completed
   toggleCompleted(todo: Todo):Observable<any> {
     const url = `${this.todosUrls}/${todo.id}`;
-    return this.http.put(url, todo, HttpOptions);
+    return this.http.put(url, todo, httpOptions);
+  }
+
+  // Delete Todo
+  deleteTodo(todo:Todo):Observable<Todo> {
+    const url = `${this.todosUrls}/${todo.id}`;
+    return this.http.delete<Todo>(url, httpOptions)
   }
 }
